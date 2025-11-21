@@ -1,4 +1,22 @@
-/* --- RESET & VARIÁVEIS --- */
+/*
+  CÓDICE HEXTECH - FOLHA DE ESTILO PRINCIPAL
+  Autor: João Gabriel Fazio Pauli
+  Projeto: Imersão Dev Alura
+
+  --- ÍNDICE ---
+  1. RESET & VARIÁVEIS GLOBAIS
+  2. ESTILOS GERAIS (BODY)
+  3. HEADER E NAVEGAÇÃO
+  4. BARRA DE BUSCA E FILTROS
+  5. CONTEÚDO PRINCIPAL (MAIN & GRID DE CARDS)
+  6. ESTILOS DOS CARDS
+  7. MODAIS (DETALHES E SKINS)
+  8. FOOTER (RODAPÉ)
+  9. UTILITÁRIOS (SCROLLBAR, SPINNER, CONTROLES)
+  10. MEDIA QUERIES (RESPONSIVIDADE)
+*/
+
+/* --- 1. RESET & VARIÁVEIS GLOBAIS --- */
 * {
   box-sizing: border-box;
 }
@@ -12,7 +30,7 @@
   --card-bg: rgba(9, 20, 40, 0.95); /* Fundo do Card */
 }
 
-/* --- BODY COM BACKGROUND JPG --- */
+/* --- 2. ESTILOS GERAIS (BODY) --- */
 body {
   margin: 0;
   color: var(--secondary-color);
@@ -23,15 +41,14 @@ body {
 
   background-color: var(--bg-color);
 
-  /* CORREÇÃO: Agora apontando para .jpg */
+  /* Imagem de fundo com efeito parallax */
   background-image: url("background.jpg");
-
   background-size: cover;
   background-position: center center;
   background-attachment: fixed; /* Efeito Parallax */
 }
 
-/* --- HEADER HEXTECH --- */
+/* --- 3. HEADER E NAVEGAÇÃO --- */
 header {
   padding: 1.5rem 2rem;
   display: flex;
@@ -46,7 +63,7 @@ header {
   border-bottom: 1px solid var(--primary-color);
   position: relative;
   z-index: 100;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px); /* Efeito de vidro fosco no fundo */
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
 }
 
@@ -62,7 +79,7 @@ header {
 .header-title i {
   font-size: 2rem;
   color: var(--primary-color);
-  filter: drop-shadow(0 0 5px var(--primary-color));
+  filter: drop-shadow(0 0 5px var(--primary-color)); /* Brilho no ícone */
   animation: flutuar 3s ease-in-out infinite;
   flex-shrink: 0;
 }
@@ -74,6 +91,7 @@ header h1 {
   text-transform: uppercase;
   letter-spacing: 3px;
   font-weight: 700;
+  /* Efeito de gradiente no texto */
   background: linear-gradient(to bottom, #f0e6d2 0%, #c89b3c 100%);
   -webkit-background-clip: text;
   background-clip: text;
@@ -99,7 +117,7 @@ header h1 {
   cursor: pointer;
 }
 
-/* --- BADGE DE VERSÃO --- */
+/* Badge para exibir a versão do patch */
 .status-badge {
   display: flex;
   align-items: center;
@@ -116,7 +134,7 @@ header h1 {
   font-weight: 600;
   letter-spacing: 2px;
   text-transform: uppercase;
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px); /* Efeito de vidro fosco */
   transition: all 0.3s ease;
 }
 
@@ -126,6 +144,7 @@ header h1 {
   transform: translateY(-2px);
 }
 
+/* Ponto verde animado indicando status "online" */
 .status-dot {
   width: 8px;
   height: 8px;
@@ -141,6 +160,7 @@ header h1 {
   font-size: 0.95rem;
 }
 
+/* Animação de pulso para o status-dot */
 @keyframes pulsarSuave {
   0% {
     box-shadow: 0 0 0 0 rgba(10, 201, 117, 0.7);
@@ -153,7 +173,7 @@ header h1 {
   }
 }
 
-/* --- BARRA DE BUSCA --- */
+/* --- 4. BARRA DE BUSCA E FILTROS --- */
 .search-box {
   display: flex;
   align-items: center;
@@ -240,7 +260,7 @@ header h1 {
   }
 }
 
-/* --- FILTROS --- */
+/* Contêiner dos botões de filtro */
 .filtros-container {
   display: flex;
   justify-content: center;
@@ -251,6 +271,7 @@ header h1 {
   flex-wrap: wrap;
 }
 
+/* Estilo individual dos botões de filtro */
 .btn-filtro {
   background: transparent;
   border: 1px solid var(--tertiary-color);
@@ -271,6 +292,7 @@ header h1 {
   transform: translateY(-2px);
 }
 
+/* Estilo do botão de filtro ativo */
 .btn-filtro.ativo {
   background: var(--primary-color);
   color: var(--bg-color);
@@ -278,7 +300,7 @@ header h1 {
   box-shadow: 0 0 15px rgba(200, 155, 60, 0.3);
 }
 
-/* --- MAIN & GRID --- */
+/* --- 5. CONTEÚDO PRINCIPAL (MAIN & GRID DE CARDS) --- */
 main {
   flex: 1;
   width: 100%;
@@ -287,12 +309,14 @@ main {
   padding: 2rem;
 }
 
+/* Grid responsivo para os cards dos campeões */
 .card-container {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 2rem;
 }
 
+/* Animação de entrada para os cards */
 @keyframes aparecerSuave {
   from {
     opacity: 0;
@@ -304,6 +328,7 @@ main {
   }
 }
 
+/* --- 6. ESTILOS DOS CARDS --- */
 article.card {
   background: var(--card-bg);
   border: 1px solid #3c3c41;
@@ -312,7 +337,7 @@ article.card {
   display: flex;
   flex-direction: column;
   transition: all 0.3s ease;
-  height: 100%;
+  height: 100%; /* Garante que todos os cards na mesma linha tenham a mesma altura */
   animation: aparecerSuave 0.6s ease-out forwards;
   opacity: 0;
 }
@@ -331,8 +356,8 @@ article.card:hover {
   position: relative;
   background-color: #050a14;
 
-  /* A MÁGICA DO 100 EM PERFORMANCE: */
-  aspect-ratio: 308 / 560; /* Proporção oficial das imagens de loading da Riot */
+  /* Otimização de performance: define a proporção da imagem antes dela carregar, evitando reflows */
+  aspect-ratio: 308 / 560; /* Proporção oficial das imagens de loading da Riot Games */
 }
 
 .card-img-wrapper img {
@@ -343,6 +368,7 @@ article.card:hover {
   transition: transform 0.5s ease;
 }
 
+/* Efeito de zoom na imagem ao passar o mouse sobre o card */
 article.card:hover .card-img-wrapper img {
   transform: scale(1.1);
 }
@@ -376,6 +402,7 @@ article h2 {
   color: #a0a0a0;
   margin-bottom: 1.5rem;
   display: -webkit-box;
+  /* Limita a descrição a 3 linhas, adicionando "..." no final */
   -webkit-line-clamp: 3;
   line-clamp: 3;
   -webkit-box-orient: vertical;
@@ -383,7 +410,7 @@ article h2 {
 }
 
 .tags {
-  margin-top: auto;
+  margin-top: auto; /* Empurra as tags para o final do card-content */
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
@@ -400,7 +427,7 @@ article h2 {
   text-transform: uppercase;
 }
 
-/* --- BOTÕES DO CARD --- */
+/* Botão "Ver Detalhes" no card */
 .btn-detalhes {
   text-align: center;
   display: block;
@@ -424,6 +451,7 @@ article h2 {
   box-shadow: 0 0 15px rgba(200, 155, 60, 0.3);
 }
 
+/* Botão "Skins" no card */
 .btn-skins {
   display: inline-flex;
   align-items: center;
@@ -449,7 +477,7 @@ article h2 {
   box-shadow: 0 0 10px rgba(200, 155, 60, 0.2);
 }
 
-/* --- MODAIS --- */
+/* --- 7. MODAIS (DETALHES E SKINS) --- */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -457,7 +485,7 @@ article h2 {
   width: 100%;
   height: 100%;
   background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px); /* Efeito de desfoque no fundo da página */
   z-index: 1000;
   display: flex;
   justify-content: center;
@@ -466,6 +494,7 @@ article h2 {
   transition: opacity 0.3s ease;
 }
 
+/* Classe para esconder o modal */
 .modal-overlay.hidden {
   opacity: 0;
   pointer-events: none;
@@ -484,6 +513,7 @@ article h2 {
   animation: scaleUp 0.3s ease;
 }
 
+/* Animação de surgimento do modal */
 @keyframes scaleUp {
   from {
     transform: scale(0.8);
@@ -495,26 +525,13 @@ article h2 {
   }
 }
 
-/* --- BOTÃO DE FECHAR (AGORA FLUTUANTE/STICKY) --- */
+/* Botão de fechar 'X' para os modais */
 .btn-fechar {
-  /* Mágica: Fixa o botão no topo enquanto rola */
-  position: sticky;
-  top: 15px; /* Distância do topo */
-
-  /* Posicionamento na direita */
-  float: right;
-  margin-right: 15px;
-
-  /* Truque para ele não empurrar a imagem para baixo */
-  margin-bottom: -40px;
-
-  /* Visual */
-  background: rgba(
-    0,
-    0,
-    0,
-    0.6
-  ); /* Um pouco mais escuro para garantir contraste */
+  /* Posicionamento fixo no canto superior direito do modal */
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(5px); /* Efeito de vidro */
   width: 40px;
   height: 40px;
@@ -523,7 +540,7 @@ article h2 {
   color: #c89b3c;
   font-size: 1.2rem;
   cursor: pointer;
-  z-index: 100; /* Garante que fique acima de tudo, inclusive da Lore */
+  z-index: 1010; /* Garante que fique acima do conteúdo do modal */
   transition: all 0.2s;
   display: flex;
   align-items: center;
@@ -536,13 +553,14 @@ article h2 {
   transform: scale(1.1);
 }
 
-/* Modal Detalhes */
+/* Estilos específicos para o Modal de Detalhes */
 .modal-img-container {
   width: 100%;
   height: 350px;
   position: relative;
 }
 
+/* Gradiente sobre a imagem para suavizar a transição para o conteúdo */
 .modal-img-container::after {
   content: "";
   position: absolute;
@@ -561,6 +579,7 @@ article h2 {
   object-position: top center;
 }
 
+/* Posicionamento do texto (nome e título) sobre a imagem */
 .modal-header-text {
   position: absolute;
   bottom: 20px;
@@ -594,6 +613,7 @@ article h2 {
   align-items: start;
 }
 
+/* Títulos das seções dentro do modal */
 .info-coluna-lore h3,
 .stats-box h3,
 .spells-section h3 {
@@ -607,6 +627,7 @@ article h2 {
   margin-bottom: 1rem;
 }
 
+/* Estilização da caixa de lore com scroll customizado */
 .info-coluna-lore p {
   line-height: 1.8;
   color: #c0c0c0;
@@ -629,6 +650,7 @@ article h2 {
   border-radius: 10px;
 }
 
+/* Contêiner para o gráfico de radar (Chart.js) */
 .chart-container {
   position: relative;
   height: 300px;
@@ -638,15 +660,17 @@ article h2 {
   align-items: center;
 }
 
+/* Regra para esconder a caixa de stats se o campeão não tiver dados */
 .stats-box[style*="display: none"] {
   display: none !important;
 }
+/* Ajusta o grid para ocupar todo o espaço quando a caixa de stats está escondida */
 .stats-box[style*="display: none"] + .info-coluna-lore,
 .modal-info:has(.stats-box[style*="display: none"]) {
   grid-template-columns: 1fr;
 }
 
-/* Loading Spinner */
+/* --- 9. UTILITÁRIOS (SCROLLBAR, SPINNER, CONTROLES) --- */
 .loading-container {
   display: flex;
   flex-direction: column;
@@ -657,6 +681,7 @@ article h2 {
   grid-column: 1/-1;
 }
 
+/* Animação do spinner de carregamento */
 .spinner {
   width: 50px;
   height: 50px;
@@ -676,7 +701,7 @@ article h2 {
   }
 }
 
-/* Seção Habilidades */
+/* Seção de Habilidades no Modal de Detalhes */
 .spells-section {
   padding: 0 2rem 2rem 2rem;
 }
@@ -686,6 +711,8 @@ article h2 {
   gap: 1.5rem;
   margin-top: 1rem;
 }
+
+/* Card individual para cada habilidade */
 .spell-card {
   display: flex;
   align-items: center;
@@ -701,6 +728,8 @@ article h2 {
   border-color: var(--primary-color);
   background: rgba(200, 155, 60, 0.1);
 }
+
+/* Wrapper da imagem da habilidade */
 .spell-img-wrapper {
   position: relative;
   width: 64px;
@@ -713,6 +742,8 @@ article h2 {
   border: 2px solid #c89b3c;
   border-radius: 4px;
 }
+
+/* Tecla da habilidade (P, Q, W, E, R) */
 .spell-key {
   position: absolute;
   bottom: -5px;
@@ -741,7 +772,7 @@ article h2 {
   line-height: 1.5;
 }
 
-/* Modal Skins */
+/* Estilos específicos para o Modal de Skins */
 .modal-skins-content {
   max-width: 1200px;
   background-color: #091428;
@@ -764,6 +795,7 @@ article h2 {
   text-transform: uppercase;
 }
 
+/* Galeria horizontal de skins com scroll */
 .skins-gallery {
   display: flex;
   overflow-x: auto;
@@ -774,6 +806,7 @@ article h2 {
   scrollbar-color: var(--primary-color) #091428;
 }
 
+/* Card individual para cada skin na galeria */
 .skin-card {
   flex: 0 0 auto;
   width: 280px;
@@ -804,7 +837,7 @@ article h2 {
   font-size: 0.9rem;
 }
 
-/* --- FOOTER --- */
+/* --- 8. FOOTER (RODAPÉ) --- */
 .footer {
   background: linear-gradient(180deg, rgba(6, 12, 24, 0.95) 0%, #010a13 100%);
   padding: 3rem 1rem;
@@ -814,6 +847,7 @@ article h2 {
   box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5);
 }
 
+/* Linha decorativa no topo do footer */
 .footer::before {
   content: "";
   position: absolute;
@@ -891,7 +925,7 @@ article h2 {
   text-shadow: none;
 }
 
-/* --- SCROLLBAR --- */
+/* Estilização da scrollbar global */
 ::-webkit-scrollbar {
   width: 10px;
   height: 10px;
@@ -908,7 +942,7 @@ article h2 {
   background: #e0b456;
 }
 
-/* --- CONTROLES DE SCROLL (CORREÇÃO Z-INDEX) --- */
+/* Botões flutuantes para ir ao topo/final da página */
 .scroll-controls {
   position: fixed;
   bottom: 2rem;
@@ -916,7 +950,7 @@ article h2 {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-  z-index: 900; /* AUMENTADO PARA NÃO SUMIR ATRÁS DE NADA */
+  z-index: 900; /* z-index menor que o modal, mas maior que o resto */
 }
 
 .scroll-controls button {
@@ -943,13 +977,14 @@ article h2 {
   box-shadow: 0 0 15px var(--primary-color);
 }
 
+/* Classe para esconder o botão de "ir para o topo" */
 .hide {
   opacity: 0;
   pointer-events: none;
   transform: translateY(20px);
 }
 
-/* --- RESPONSIVIDADE --- */
+/* --- 10. MEDIA QUERIES (RESPONSIVIDADE) --- */
 
 /* Tablet e PC */
 @media (min-width: 768px) {
@@ -985,7 +1020,7 @@ article h2 {
   }
 }
 
-/* Celular */
+/* Celular (Telas menores que 768px) */
 @media (max-width: 768px) {
   header {
     flex-direction: column;
@@ -1006,6 +1041,7 @@ article h2 {
     width: 100%;
   }
 
+  /* Torna os filtros roláveis horizontalmente em telas pequenas */
   .filtros-container {
     display: flex;
     flex-wrap: nowrap;
@@ -1026,6 +1062,7 @@ article h2 {
     padding: 0.5rem 1.2rem;
   }
 
+  /* Ajusta o layout do modal de detalhes para uma única coluna */
   .modal-info {
     grid-template-columns: 1fr;
     gap: 2rem;
@@ -1052,7 +1089,7 @@ article h2 {
   }
 }
 
-/* Celular Pequeno (320px) */
+/* Celular Pequeno (Telas menores que 400px) */
 @media (max-width: 400px) {
   .header-title {
     gap: 0.3rem;

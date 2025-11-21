@@ -43,7 +43,7 @@
   </head>
   <body>
     <!-- ========= CABEÇALHO ========= -->
-    <header>
+    <header role="banner">
       <div class="header-title">
         <i class="ph-fill ph-diamond helper-icon"></i>
         <h1>Base de Conhecimento</h1>
@@ -57,12 +57,13 @@
       </div>
 
       <!-- Badge para exibir a versão atual do patch do jogo -->
-      <div id="status-patch" class="status-badge">
+      <div class="status-badge">
         <span class="status-dot"></span>
         Patch <span id="numero-versao">Carregando...</span>
       </div>
 
-      <div class="search-box">
+      <!-- Caixa de busca principal -->
+      <div class="search-box" role="search">
         <i class="ph ph-magnifying-glass search-icon"></i>
         <input
           type="text"
@@ -81,7 +82,7 @@
       </div>
 
       <!-- Navegação de filtros por classe de campeão -->
-      <nav class="filtros-container">
+      <nav class="filtros-container" aria-label="Filtros por classe de campeão">
         <button class="btn-filtro ativo" onclick="filtrarPorTag('Todos', this)">
           Todos
         </button>
@@ -107,7 +108,7 @@
     </header>
 
     <!-- ========= CONTEÚDO PRINCIPAL ========= -->
-    <main>
+    <main id="main-content">
       <!-- Spinner de carregamento, exibido enquanto os dados da API são buscados -->
       <div id="loading-spinner" class="loading-container">
         <div class="spinner"></div>
@@ -137,8 +138,8 @@
           <div class="modal-img-container">
             <img id="modal-img" src="" alt="Splash Art" />
             <div class="modal-header-text">
-              <h2 id="modal-nome">Nome</h2>
-              <p id="modal-titulo">Título</p>
+              <h2 id="modal-nome">Nome do Campeão</h2>
+              <p id="modal-titulo">Título do Campeão</p>
             </div>
           </div>
 
@@ -168,17 +169,21 @@
       id="modal-skins-overlay"
       class="modal-overlay hidden"
       onclick="fecharModalSkins(event)"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="skins-campeao-nome"
     >
       <div
         class="modal-content modal-skins-content"
         onclick="event.stopPropagation()"
       >
+        <!-- Botão para fechar o modal de skins -->
         <button
           class="btn-fechar"
           onclick="fecharModalSkins(event)"
           aria-label="Fechar galeria"
         >
-          X
+          <i class="ph ph-x"></i>
         </button>
 
         <div class="skins-header">
@@ -189,7 +194,9 @@
         </div>
 
         <!-- Contêiner onde as skins serão renderizadas -->
-        <div class="skins-gallery" id="skins-gallery-container"></div>
+        <div class="skins-gallery" id="skins-gallery-container">
+          <!-- As imagens das skins serão inseridas aqui via JavaScript -->
+        </div>
       </div>
     </div>
 
@@ -216,6 +223,7 @@
     <!-- ========= RODAPÉ ========= -->
     <footer class="footer">
       <div class="footer-content">
+        <!-- Links para redes sociais e portfólio -->
         <div class="social-links">
           <a
             href="https://github.com/joaoFazio"
@@ -239,6 +247,7 @@
             <i class="ph-fill ph-student"></i>
           </a>
         </div>
+        <!-- Créditos de desenvolvimento -->
         <div class="footer-credits">
           <p>
             Desenvolvido por <strong>João Gabriel Fazio Pauli</strong> durante a
@@ -246,6 +255,7 @@
           </p>
         </div>
         <div class="footer-divider"></div>
+        <!-- Aviso legal sobre o uso de ativos da Riot Games -->
         <div class="footer-legal">
           <p>
             Este projeto foi criado sob a política de "Legal Jibber Jabber" da
