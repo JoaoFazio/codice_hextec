@@ -26,7 +26,7 @@ body {
   background-color: var(--bg-color);
 
   /* Apenas a imagem, sem gradiente */
-  background-image: url("background.png");
+  background-image: url("img/background.jpg");
 
   background-size: cover;
   background-position: center center;
@@ -47,7 +47,7 @@ header {
       rgba(6, 12, 24, 0.5),
       rgba(6, 12, 24, 0.9)
     ),
-    url("header-bg.jpg");
+    url("img/header-bg.jpg");
 
   background-size: cover;
   background-position: center 40%;
@@ -956,26 +956,6 @@ img {
   background: var(--primary-color);
   color: #091428;
   text-shadow: none;
-}
-
-/* --- CURSOR PERSONALIZADO --- */
-body {
-  cursor: url("cursor.png"), auto;
-}
-a,
-button,
-i,
-input,
-.card,
-.btn-filtro,
-.skin-card,
-.header-logo-right,
-.btn-fechar {
-  cursor: url("cursor-hover.png"), pointer;
-}
-.modal-content,
-header {
-  cursor: url("cursor.png"), auto;
 }
 
 /* --- BARRA DE ROLAGEM PERSONALIZADA (CROSS-BROWSER) --- */
