@@ -1,10 +1,15 @@
 // --- SELETORES DE ELEMENTOS DOM ---
 const cardContainer = document.querySelector(".card-container");
-const inputBusca = document.querySelector("input");
+const inputBusca = document.getElementById("input-busca");
 const botaoBusca = document.querySelector("#botao-busca");
 const btnTopo = document.getElementById("btn-topo");
+const btnFinal = document.getElementById("btn-final");
 const btnLimpar = document.getElementById("btn-limpar");
 const loadingSpinner = document.getElementById("loading-spinner");
+const filtrosContainer = document.querySelector(".filtros-container");
+const modalOverlay = document.getElementById("modal-overlay");
+const modalSkinsOverlay = document.getElementById("modal-skins-overlay");
+const skinsGallery = document.getElementById("skins-gallery-container");
 
 // --- CONSTANTES E VARIÁVEIS GLOBAIS ---
 // URLs da API da Riot Games
@@ -102,8 +107,6 @@ async function iniciarBusca() {
   renderizarCards(dadosFiltrados);
 }
 
-// --- EVENT LISTENERS ---
-
 // Evento para o input de busca: aciona a busca a cada caractere digitado
 inputBusca.addEventListener("input", () => {
   // Mostra ou esconde o botão de limpar (X)
@@ -119,35 +122,6 @@ btnLimpar.addEventListener("click", () => {
   inputBusca.focus();
   renderizarCards(todosCampeoes); // Renderiza todos os campeões novamente
 });
-
-// Evento para o botão de busca principal (lupa)
-botaoBusca.addEventListener("click", iniciarBusca);
-
-/**
- * Filtra os campeões pela tag (classe) selecionada nos botões de filtro.
- * @param {string} tag - A tag a ser filtrada (ex: "Fighter", "Mage").
- * @param {HTMLElement} elementoBotao - O elemento do botão que foi clicado.
- */
-function filtrarPorTag(tag, elementoBotao) {
-  const botoes = document.querySelectorAll(".btn-filtro");
-  botoes.forEach((btn) => btn.classList.remove("ativo"));
-  elementoBotao.classList.add("ativo");
-
-  if (tag === "Todos") {
-    renderizarCards(todosCampeoes);
-    return;
-  }
-
-  const dadosFiltrados = todosCampeoes.filter((campeao) =>
-    campeao.tags.includes(tag)
-  );
-
-  if (dadosFiltrados.length === 0) {
-    cardContainer.innerHTML = `<p style='color: white; text-align: center; grid-column: 1/-1;'>Nenhum campeão encontrado nesta categoria.</p>`;
-    return;
-  }
-  renderizarCards(dadosFiltrados);
-}
 
 // --- RENDERIZAÇÃO ---
 /**
@@ -169,32 +143,30 @@ function renderizarCards(lista) {
     const imgUrl = `${BASE_IMG_URL}${campeao.id}_0.jpg`;
 
     article.innerHTML = `
-            <div class="card-img-wrapper">
-                <img src="${imgUrl}" alt="${
+      <div class="card-img-wrapper">
+          <img src="${imgUrl}" alt="${
       campeao.name
     }" width="308" height="560" loading="lazy">
-            </div>
-            <div class="card-content">
-                <h2>${campeao.name}</h2>
-                <p class="titulo">${campeao.title}</p>
-                <p class="descricao">${campeao.blurb}</p>
-                <div class="tags">
-                    ${campeao.tags
-                      .map((tag) => `<span>${TRADUCAO_TAGS[tag] || tag}</span>`)
-                      .join("")}
-                </div>
-                <div style="display: flex; justify-content: flex-end;">
-                    <button class="btn-skins" onclick="abrirModalSkins('${
-                      campeao.id
-                    }')">
-                        <i class="ph-fill ph-paint-brush-broad"></i> Skins
-                    </button>
-                </div>
-                <button class="btn-detalhes" onclick="abrirModal('${
-                  campeao.id
-                }')">Ver Detalhes</button>
-            </div>
-        `;
+      </div>
+      <div class="card-content">
+          <h2>${campeao.name}</h2>
+          <p class="titulo">${campeao.title}</p>
+          <p class="descricao">${campeao.blurb}</p>
+          <div class="tags">
+              ${campeao.tags
+                .map((tag) => `<span>${TRADUCAO_TAGS[tag] || tag}</span>`)
+                .join("")}
+          </div>
+          <div style="display: flex; justify-content: flex-end;">
+              <button class="btn-skins" data-id="${campeao.id}">
+                  <i class="ph-fill ph-paint-brush-broad"></i> Skins
+              </button>
+          </div>
+          <button class="btn-detalhes" data-id="${
+            campeao.id
+          }">Ver Detalhes</button>
+      </div>`;
+    article.dataset.id = campeao.id; // Adiciona o ID do campeão ao elemento do card
     cardContainer.appendChild(article);
   });
 }
@@ -228,20 +200,21 @@ async function abrirModalSkins(campeaoId) {
     const dados = await resposta.json();
     const skins = dados.data[campeaoId].skins;
 
-    containerGaleria.innerHTML = "";
+    // Constrói o HTML das skins e insere de uma vez para melhor performance
+    const skinsHtml = skins
+      .map((skin) => {
+        const imgUrl = `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${campeaoId}_${skin.num}.jpg`;
+        const nomeSkin = skin.name === "default" ? "Padrão" : skin.name;
+        return `
+        <div class="skin-card">
+          <img src="${imgUrl}" alt="${nomeSkin}" width="308" height="560" loading="lazy">
+          <p>${nomeSkin}</p>
+        </div>
+      `;
+      })
+      .join("");
 
-    skins.forEach((skin) => {
-      const div = document.createElement("div");
-      div.classList.add("skin-card");
-      const imgUrl = `https://ddragon.leagueoflegends.com/cdn/img/champion/loading/${campeaoId}_${skin.num}.jpg`;
-      const nomeSkin = skin.name === "default" ? "Padrão" : skin.name;
-
-      div.innerHTML = `
-                <img src="${imgUrl}" alt="${nomeSkin}" width="308" height="560" loading="lazy">
-                <p>${nomeSkin}</p>
-            `;
-      containerGaleria.appendChild(div);
-    });
+    containerGaleria.innerHTML = skinsHtml;
   } catch (erro) {
     console.error(erro);
     containerGaleria.innerHTML =
@@ -252,8 +225,8 @@ async function abrirModalSkins(campeaoId) {
 /**
  * Fecha o modal de skins.
  */
-function fecharModalSkins() {
-  document.getElementById("modal-skins-overlay").classList.add("hidden");
+function fecharModalSkins(event) {
+  modalSkinsOverlay.classList.add("hidden");
   document.body.style.overflow = "auto"; // Restaura o scroll da página principal
 }
 
@@ -359,40 +332,41 @@ async function abrirModal(campeaoId) {
     if (spellsContainer) {
       spellsContainer.innerHTML = ""; // Limpa o container de habilidades
 
+      // Usa map e join para construir o HTML de uma vez, melhorando a performance
       const passiva = dadosDetalhados.passive;
-
-      // Renderiza a habilidade passiva
       const imgPassiva = `https://ddragon.leagueoflegends.com/cdn/${versaoAtual}/img/passive/${passiva.image.full}`;
-      spellsContainer.innerHTML += `
-                <div class="spell-card">
-                    <div class="spell-img-wrapper">
-                        <img src="${imgPassiva}" alt="${passiva.name}" width="64" height="64">
-                        <span class="spell-key">P</span>
-                    </div>
-                    <div class="spell-info">
-                        <h4>${passiva.name}</h4>
-                        <p>${passiva.description}</p>
-                    </div>
-                </div>
-            `;
 
-      // Renderiza as habilidades Q, W, E, R
+      const passivaHtml = `
+        <div class="spell-card">
+            <div class="spell-img-wrapper">
+                <img src="${imgPassiva}" alt="${passiva.name}" width="64" height="64">
+                <span class="spell-key">P</span>
+            </div>
+            <div class="spell-info">
+                <h4>${passiva.name}</h4>
+                <p>${passiva.description}</p>
+            </div>
+        </div>`;
+
       const teclas = ["Q", "W", "E", "R"];
-      dadosDetalhados.spells.forEach((spell, index) => {
-        const imgSpell = `https://ddragon.leagueoflegends.com/cdn/${versaoAtual}/img/spell/${spell.image.full}`;
-        spellsContainer.innerHTML += `
-                    <div class="spell-card">
-                        <div class="spell-img-wrapper">
-                            <img src="${imgSpell}" alt="${spell.name}" width="64" height="64">
-                            <span class="spell-key">${teclas[index]}</span>
-                        </div>
-                        <div class="spell-info">
-                            <h4>${spell.name}</h4>
-                            <p>${spell.description}</p>
-                        </div>
-                    </div>
-                `;
-      });
+      const spellsHtml = dadosDetalhados.spells
+        .map((spell, index) => {
+          const imgSpell = `https://ddragon.leagueoflegends.com/cdn/${versaoAtual}/img/spell/${spell.image.full}`;
+          return `
+          <div class="spell-card">
+              <div class="spell-img-wrapper">
+                  <img src="${imgSpell}" alt="${spell.name}" width="64" height="64">
+                  <span class="spell-key">${teclas[index]}</span>
+              </div>
+              <div class="spell-info">
+                  <h4>${spell.name}</h4>
+                  <p>${spell.description}</p>
+              </div>
+          </div>`;
+        })
+        .join("");
+
+      spellsContainer.innerHTML = passivaHtml + spellsHtml;
     }
   } catch (erro) {
     // Em caso de erro, exibe a descrição curta (blurb) e uma mensagem de erro
@@ -406,19 +380,9 @@ async function abrirModal(campeaoId) {
 /**
  * Fecha o modal de detalhes.
  */
-function fecharModal() {
-  document.getElementById("modal-overlay").classList.add("hidden");
+function fecharModal(event) {
+  modalOverlay.classList.add("hidden");
   document.body.style.overflow = "auto"; // Restaura o scroll
-}
-
-// --- FUNÇÕES UTILITÁRIAS E EVENTOS GERAIS ---
-
-/** Funções para os botões de scroll da página */
-function irParaTopo() {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-function irParaFinal() {
-  window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
 }
 
 // Exibe ou esconde o botão "Voltar ao Topo" com base na posição do scroll
@@ -433,20 +397,91 @@ window.addEventListener("scroll", () => {
   }
 });
 
-// Permite fechar os modais com a tecla "Escape"
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") {
-    fecharModal();
-    fecharModalSkins();
+// --- EVENT LISTENERS GERAIS ---
+
+// Botão de busca principal
+botaoBusca.addEventListener("click", iniciarBusca);
+
+// Botões de scroll da página
+btnTopo.addEventListener("click", () =>
+  window.scrollTo({ top: 0, behavior: "smooth" })
+);
+btnFinal.addEventListener("click", () =>
+  window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" })
+);
+
+// Delegação de eventos para os filtros de classe
+filtrosContainer.addEventListener("click", (event) => {
+  const elementoBotao = event.target.closest(".btn-filtro");
+  if (!elementoBotao) return;
+
+  // Atualiza a classe 'ativo' nos botões
+  filtrosContainer.querySelector(".ativo").classList.remove("ativo");
+  elementoBotao.classList.add("ativo");
+
+  const tag = elementoBotao.dataset.tag;
+
+  if (tag === "Todos") {
+    renderizarCards(todosCampeoes);
+    return;
+  }
+
+  const dadosFiltrados = todosCampeoes.filter((campeao) =>
+    campeao.tags.includes(tag)
+  );
+
+  if (dadosFiltrados.length === 0) {
+    cardContainer.innerHTML = `<p style='color: white; text-align: center; grid-column: 1/-1;'>Nenhum campeão encontrado nesta categoria.</p>`;
+  } else {
+    renderizarCards(dadosFiltrados);
   }
 });
 
-// Permite rolar a galeria de skins horizontalmente com o scroll do mouse
-const skinsGallery = document.getElementById("skins-gallery-container");
+// Delegação de eventos para os botões nos cards ("Ver Detalhes" e "Skins")
+cardContainer.addEventListener("click", (event) => {
+  const target = event.target;
+  const campeaoId = target.closest(".card")?.dataset.id;
+
+  if (!campeaoId) return;
+
+  if (target.closest(".btn-detalhes")) {
+    abrirModal(campeaoId);
+  } else if (target.closest(".btn-skins")) {
+    abrirModalSkins(campeaoId);
+  }
+});
+
+// Eventos para fechar os modais
+modalOverlay.addEventListener("click", fecharModal);
+modalSkinsOverlay.addEventListener("click", fecharModalSkins);
+
+// Adiciona listeners aos botões de fechar 'X' dentro dos modais
+modalOverlay
+  .querySelector(".btn-fechar")
+  .addEventListener("click", fecharModal);
+modalSkinsOverlay
+  .querySelector(".btn-fechar")
+  .addEventListener("click", fecharModalSkins);
+
+// Impede que o clique no conteúdo do modal o feche (propagação)
+modalOverlay
+  .querySelector(".modal-content")
+  .addEventListener("click", (e) => e.stopPropagation());
+modalSkinsOverlay
+  .querySelector(".modal-skins-content")
+  .addEventListener("click", (e) => e.stopPropagation());
+
+// Evento de teclado para fechar modais com a tecla "Escape"
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") {
+    if (!modalOverlay.classList.contains("hidden")) fecharModal();
+    if (!modalSkinsOverlay.classList.contains("hidden")) fecharModalSkins();
+  }
+});
+
+// Evento para rolar a galeria de skins horizontalmente com o scroll do mouse
 skinsGallery.addEventListener("wheel", (evt) => {
-  if (
-    !document.getElementById("modal-skins-overlay").classList.contains("hidden")
-  ) {
+  if (!modalSkinsOverlay.classList.contains("hidden")) {
     evt.preventDefault();
     skinsGallery.scrollLeft += evt.deltaY * 4;
   }

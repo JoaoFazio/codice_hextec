@@ -120,19 +120,9 @@
     </main>
 
     <!-- ========= MODAL DE DETALHES DO CAMPEÃO ========= -->
-    <div
-      id="modal-overlay"
-      class="modal-overlay hidden"
-      onclick="fecharModal(event)"
-    >
+    <div id="modal-overlay" class="modal-overlay hidden">
       <div class="modal-content" onclick="event.stopPropagation()">
-        <button
-          class="btn-fechar"
-          onclick="fecharModal(event)"
-          aria-label="Fechar modal"
-        >
-          X
-        </button>
+        <button class="btn-fechar" aria-label="Fechar modal">X</button>
 
         <div class="modal-body">
           <div class="modal-img-container">
@@ -168,7 +158,6 @@
     <div
       id="modal-skins-overlay"
       class="modal-overlay hidden"
-      onclick="fecharModalSkins(event)"
       role="dialog"
       aria-modal="true"
       aria-labelledby="skins-campeao-nome"
@@ -178,11 +167,7 @@
         onclick="event.stopPropagation()"
       >
         <!-- Botão para fechar o modal de skins -->
-        <button
-          class="btn-fechar"
-          onclick="fecharModalSkins(event)"
-          aria-label="Fechar galeria"
-        >
+        <button class="btn-fechar" aria-label="Fechar galeria">
           <i class="ph ph-x"></i>
         </button>
 
@@ -204,7 +189,6 @@
     <div class="scroll-controls">
       <button
         id="btn-topo"
-        onclick="irParaTopo()"
         title="Voltar ao Topo"
         aria-label="Voltar ao topo da página"
       >
@@ -212,7 +196,6 @@
       </button>
       <button
         id="btn-final"
-        onclick="irParaFinal()"
         title="Ir para o Rodapé"
         aria-label="Ir para o final da página"
       >
