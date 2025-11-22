@@ -71,7 +71,7 @@ O projeto aplica os conceitos fundamentais da Imersão com foco total na Experi�
 
 ## 👨‍💻 Autor
 
-Desenvolvido com dedicação por **João Gabriel Fazio Pauli**.
+Desenvolvido por **João Gabriel Fazio Pauli**.
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/joão-gabriel-fazio-861186338/)
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/joaoFazio)
