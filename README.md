@@ -17,7 +17,7 @@ Uma aplicação web interativa e imersiva que consome a API oficial da Riot Game
 
 | 🖥️ Navegação & Gráficos | 🎨 Galeria de Skins | 📱 Mobile (Responsivo) |
 | :---: | :---: | :---: |
-| <img src="assets/demo-desktop.gif" width="100%"> | <img src="assets/demo-skins.gif" width="100%"> | <img src="assets/demo-mobile.gif" width="100%"> |
+| <img src="src="https://raw.githubusercontent.com/JoaoFazio/codice_hextec/main/assets/demo-desktop.gif"" width="100%"> | <img src="assets/demo-skins.gif" width="100%"> | <img src="assets/demo-mobile.gif" width="100%"> |
 | *Busca em Tempo Real e Chart.js* | *Fundo Dinâmico e Scroll* | *Carrossel Touch e Layout Adaptável* |
 ---
 
