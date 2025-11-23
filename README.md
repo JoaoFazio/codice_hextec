@@ -1,4 +1,5 @@
 # 💎 Códice Hextech | Guia de Campeões LoL
+🔗 Teste o projeto ao vivo: https://joaofazio.github.io/codice_hextec/
 
 ![Status](http://img.shields.io/static/v1?label=STATUS&message=FINALIZADO&color=0ac975&style=for-the-badge)
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
@@ -16,7 +17,7 @@ Uma aplicação web interativa e imersiva que consome a API oficial da Riot Game
 
 | 🖥️ Navegação & Gráficos | 🎨 Galeria de Skins | 📱 Mobile (Responsivo) |
 | :---: | :---: | :---: |
-| <img src="assets/demo-desktop.gif" width="100%"> | <img src="assets/demo-skins.gif" width="100%"> | <img src="assets/demo-mobile.gif" width="100%"> |
+| <img src="https://raw.githubusercontent.com/JoaoFazio/codice_hextec/main/assets/demo-desktop.gif" width="100%"> | <img src="assets/demo-skins.gif" width="100%"> | <img src="assets/demo-mobile.gif" width="100%"> |
 | *Busca em Tempo Real e Chart.js* | *Fundo Dinâmico e Scroll* | *Carrossel Touch e Layout Adaptável* |
 ---
 
@@ -71,7 +72,7 @@ O projeto aplica os conceitos fundamentais da Imersão com foco total na Experi�
 
 ## 👨‍💻 Autor
 
-Desenvolvido com dedicação por **João Gabriel Fazio Pauli**.
+Desenvolvido por **João Gabriel Fazio Pauli**.
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/joão-gabriel-fazio-861186338/)
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/joaoFazio)
