@@ -3,7 +3,7 @@
 
 ![Status](http://img.shields.io/static/v1?label=STATUS&message=FINALIZADO&color=0ac975&style=for-the-badge)
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/css-%231572B6.svg?style=for-the-badge&logo=css&logoColor=white)
+![CSS3](https://img.shields.io/badge/css-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E)
 ![Chart.js](https://img.shields.io/badge/chart.js-F5788D.svg?style=for-the-badge&logo=chart.js&logoColor=white)
 
@@ -17,8 +17,9 @@ Uma aplicação web interativa e imersiva que consome a API oficial da Riot Game
 
 | 🖥️ Navegação & Gráficos | 🎨 Galeria de Skins | 📱 Mobile (Responsivo) |
 | :---: | :---: | :---: |
-| <img src="https://raw.githubusercontent.com/JoaoFazio/codice_hextec/main/assets/demo-desktop.gif" width="100%"> | <img src="assets/demo-skins.gif" width="100%"> | <img src="assets/demo-mobile.gif" width="100%"> |
+| <video src="assets/demo-desktop.mp4" width="100%" autoplay loop muted playsinline></video> | <video src="assets/demo-skins.mp4" width="100%" autoplay loop muted playsinline></video> | <video src="assets/demo-mobile.mp4" width="100%" autoplay loop muted playsinline></video> |
 | *Busca em Tempo Real e Chart.js* | *Fundo Dinâmico e Scroll* | *Carrossel Touch e Layout Adaptável* |
+
 ---
 
 ## ✨ Destaques do Projeto
@@ -54,19 +55,19 @@ O projeto aplica os conceitos fundamentais da Imersão com foco total na Experi�
 
 1.  Clone o projeto:
     ```bash
-    git clone [https://github.com/joaoFazio/codice-hextech.git](https://github.com/joaoFazio/codice-hextech.git)
+    git clone https://github.com/joaofazio/codice_hextec.git
     ```
 2.  Entre na pasta:
     ```bash
-    cd codice-hextech
+    cd codice_hextec
     ```
-3.  Abra o arquivo `index.html` no seu navegador ou use o **Live Server** do VS Code para uma experiência completa.
+3.  Abra o arquivo `index.html` no navegador ou use o **Live Server** do VS Code.
 
 ---
 
 ## ⚖️ Aviso Legal (Disclaimer)
 
-> *"Códice Hextech foi criado sob a política de "Legal Jibber Jabber" da Riot Games usando ativos de propriedade da Riot Games. A Riot Games não endossa ou patrocina este projeto."*
+> *"Códice Hextech foi criado sob a política de 'Legal Jibber Jabber' da Riot Games usando ativos de propriedade da Riot Games. A Riot Games não endossa ou patrocina este projeto."*
 
 ---
 
@@ -76,5 +77,3 @@ Desenvolvido por **João Gabriel Fazio Pauli**.
 
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/joão-gabriel-fazio-861186338/)
 [![GitHub](https://img.shields.io/badge/GitHub-100000?style=for-the-badge&logo=github&logoColor=white)](https://github.com/joaoFazio)
-
----
